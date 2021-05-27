@@ -23,24 +23,41 @@ firstPlayerCurrentScore.textContent = firstCurrentScore;
 secondPlayerCurrentScore.textContent = secondCurrentScore;
 
 const switchPlayer = () => {
+  if (players[0].classList.contains("player--active")) {
+    firstFinalScore += firstCurrentScore;
+    firstPlayerFinalScore.textContent = firstFinalScore;
+    firstCurrentScore = 0;
+    firstPlayerCurrentScore.textContent = firstCurrentScore;
+  } else {
+    secondFinalScore += secondCurrentScore;
+    secondPlayerFinalScore.textContent = secondFinalScore;
+    secondCurrentScore = 0;
+    secondPlayerCurrentScore.textContent = secondCurrentScore;
+  }
   for (let i = 0; i < players.length; i++) {
     players[i].classList.toggle("player--active");
   }
-  firstFinalScore += firstCurrentScore;
-  firstPlayerFinalScore.textContent = firstFinalScore;
-  firstCurrentScore = 0;
-  firstPlayerCurrentScore.textContent = firstCurrentScore;
 };
 const rollDice = () => {
   let randomNumber = Math.trunc(Math.random() * 6) + 1;
   diceImg.classList.remove("hidden");
   diceImg.src = `dice-${randomNumber}.png`;
-  if (randomNumber === 1) {
-    firstCurrentScore = 0;
-    firstPlayerCurrentScore.textContent = firstCurrentScore;
+  if (players[0].classList.contains("player--active")) {
+    if (randomNumber === 1) {
+      firstCurrentScore = 0;
+      firstPlayerCurrentScore.textContent = firstCurrentScore;
+    } else {
+      firstCurrentScore += randomNumber;
+      firstPlayerCurrentScore.textContent = firstCurrentScore;
+    }
   } else {
-    firstCurrentScore += randomNumber;
-    firstPlayerCurrentScore.textContent = firstCurrentScore;
+    if (randomNumber === 1) {
+      secondCurrentScore = 0;
+      secondPlayerCurrentScore.textContent = secondCurrentScore;
+    } else {
+      secondCurrentScore += randomNumber;
+      secondPlayerCurrentScore.textContent = secondCurrentScore;
+    }
   }
 };
 btnRoll.addEventListener("click", rollDice);
