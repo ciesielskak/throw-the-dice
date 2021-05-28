@@ -46,6 +46,9 @@ const rollDice = () => {
     if (randomNumber === 1) {
       firstCurrentScore = 0;
       firstPlayerCurrentScore.textContent = firstCurrentScore;
+      for (let i = 0; i < players.length; i++) {
+        players[i].classList.toggle("player--active");
+      }
     } else {
       firstCurrentScore += randomNumber;
       firstPlayerCurrentScore.textContent = firstCurrentScore;
@@ -54,6 +57,9 @@ const rollDice = () => {
     if (randomNumber === 1) {
       secondCurrentScore = 0;
       secondPlayerCurrentScore.textContent = secondCurrentScore;
+      for (let i = 0; i < players.length; i++) {
+        players[i].classList.toggle("player--active");
+      }
     } else {
       secondCurrentScore += randomNumber;
       secondPlayerCurrentScore.textContent = secondCurrentScore;
