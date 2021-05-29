@@ -1,4 +1,4 @@
-# Roll the dice!
+# Roll the dice! - Vanilla JS 
 
 ## Preview: https://musing-kirch-2d8901.netlify.app/
 
