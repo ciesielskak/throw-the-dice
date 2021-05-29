@@ -26,6 +26,8 @@ secondPlayerCurrentScore.textContent = secondCurrentScore;
 const chooseWinner = (score, index) => {
   if (score >= 10) {
     players[index].classList.add("player--winner");
+    btnRoll.disabled = true;
+    btnHold.disabled = true;
   }
 };
 
@@ -34,7 +36,6 @@ const toggleClass = () => {
     players[i].classList.toggle("player--active");
   }
 };
-
 const switchPlayer = () => {
   if (players[0].classList.contains("player--active")) {
     firstFinalScore += firstCurrentScore;
@@ -85,8 +86,9 @@ const startAgain = () => {
   secondPlayerFinalScore.textContent = secondFinalScore;
   firstPlayerCurrentScore.textContent = firstCurrentScore;
   secondPlayerCurrentScore.textContent = secondCurrentScore;
-  players[0].classList.remove("player--winner") ||
-    players[1].classList.remove("player--winner");
+  players[0].classList.remove("player--winner") || players[1].classList.remove("player--winner");
+  btnRoll.disabled = false;
+  btnHold.disabled = false;
 };
 btnRoll.addEventListener("click", rollDice);
 btnHold.addEventListener("click", switchPlayer);
