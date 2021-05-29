@@ -24,7 +24,7 @@ firstPlayerCurrentScore.textContent = firstCurrentScore;
 secondPlayerCurrentScore.textContent = secondCurrentScore;
 
 const chooseWinner = (score, index) => {
-  if (score >= 10) {
+  if (score >= 50) {
     players[index].classList.add("player--winner");
     btnRoll.disabled = true;
     btnHold.disabled = true;
