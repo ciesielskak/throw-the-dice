@@ -16,11 +16,24 @@ const players = document.querySelectorAll("section");
 const diceImg = document.querySelector("img");
 const btnHold = document.querySelector(".btn--hold");
 const btnRoll = document.querySelector(".btn--roll");
+const btnNewGame = document.querySelector(".btn--new");
 
 firstPlayerFinalScore.textContent = firstFinalScore;
 secondPlayerFinalScore.textContent = secondFinalScore;
 firstPlayerCurrentScore.textContent = firstCurrentScore;
 secondPlayerCurrentScore.textContent = secondCurrentScore;
+
+const chooseWinner = (score, index) => {
+  if (score >= 10) {
+    players[index].classList.add("player--winner");
+  }
+};
+
+const toggleClass = () => {
+  for (let i = 0; i < players.length; i++) {
+    players[i].classList.toggle("player--active");
+  }
+};
 
 const switchPlayer = () => {
   if (players[0].classList.contains("player--active")) {
@@ -28,15 +41,15 @@ const switchPlayer = () => {
     firstPlayerFinalScore.textContent = firstFinalScore;
     firstCurrentScore = 0;
     firstPlayerCurrentScore.textContent = firstCurrentScore;
+    chooseWinner(firstFinalScore, 0);
   } else {
     secondFinalScore += secondCurrentScore;
     secondPlayerFinalScore.textContent = secondFinalScore;
     secondCurrentScore = 0;
     secondPlayerCurrentScore.textContent = secondCurrentScore;
+    chooseWinner(secondFinalScore, 1);
   }
-  for (let i = 0; i < players.length; i++) {
-    players[i].classList.toggle("player--active");
-  }
+  toggleClass();
 };
 const rollDice = () => {
   let randomNumber = Math.trunc(Math.random() * 6) + 1;
@@ -46,9 +59,7 @@ const rollDice = () => {
     if (randomNumber === 1) {
       firstCurrentScore = 0;
       firstPlayerCurrentScore.textContent = firstCurrentScore;
-      for (let i = 0; i < players.length; i++) {
-        players[i].classList.toggle("player--active");
-      }
+      toggleClass();
     } else {
       firstCurrentScore += randomNumber;
       firstPlayerCurrentScore.textContent = firstCurrentScore;
@@ -57,14 +68,26 @@ const rollDice = () => {
     if (randomNumber === 1) {
       secondCurrentScore = 0;
       secondPlayerCurrentScore.textContent = secondCurrentScore;
-      for (let i = 0; i < players.length; i++) {
-        players[i].classList.toggle("player--active");
-      }
+      toggleClass();
     } else {
       secondCurrentScore += randomNumber;
       secondPlayerCurrentScore.textContent = secondCurrentScore;
     }
   }
 };
+
+const startAgain = () => {
+  firstFinalScore = 0;
+  secondFinalScore = 0;
+  firstCurrentScore = 0;
+  secondCurrentScore = 0;
+  firstPlayerFinalScore.textContent = firstFinalScore;
+  secondPlayerFinalScore.textContent = secondFinalScore;
+  firstPlayerCurrentScore.textContent = firstCurrentScore;
+  secondPlayerCurrentScore.textContent = secondCurrentScore;
+  players[0].classList.remove("player--winner") ||
+    players[1].classList.remove("player--winner");
+};
 btnRoll.addEventListener("click", rollDice);
 btnHold.addEventListener("click", switchPlayer);
+btnNewGame.addEventListener("click", startAgain);
